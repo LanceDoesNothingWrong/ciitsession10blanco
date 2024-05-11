@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+To-do Homepage
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>TaskMaster Application</title>
+        <link rel=stylesheet type="text/css" href="{{ url_for('static', filename='style.css')}}">
+    </head>
+<body>
+    <div class="container">
+        <header>TaskMaster v2.1</header>
+            <form action="/" method="post">
+                <input type="text" id="taskInput" name="task" placeholder="Create New Task">
+                <button type="submit"> CONFIRM </button>
+            </form>
+        <ul id="task_list">
+            {% for task in tasks %}
+            <li class="{{'completed' if task.completed else ''}}">
+                {{ task.description }}
+                <a href="{{ url_for('complete_task', task_id=task.id) }}"> DONE </a>
+                <a href="{{ url_for('edit_task', task_id=task.id) }}"> EDIT </a>
+                <a href="{{ url_for('delete_task', task_id=task.id) }}"> DELETE </a>
+            </li>
+             {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>
